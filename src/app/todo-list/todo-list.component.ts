@@ -19,4 +19,16 @@ export class TodoListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  deleteTodo(index:number):void {
+    let  tempArr = [];
+
+    for(let i=0;i<this.todos.length;i++) {
+      if(i != index) {
+        tempArr.push(this.todos[i]);
+      }
+    }
+
+    this.todos = tempArr;
+  }
+
 }
