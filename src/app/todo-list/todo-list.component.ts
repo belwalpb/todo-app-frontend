@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -7,28 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TodoListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private todoService: TodoService) { }
 
-  todos: any[] = [
-    { task: 'Need to go home', date: '12-02-2022' },
-    { task: 'Walk', date: '15-02-2022' },
-    { task: 'Need to bath', date: '13-02-2022' },
-    { task: 'Take Food', date: '14-02-2022' },
-  ]
+
+  getTodos() : any[] {
+      return this.todoService.todos;
+  }
 
   ngOnInit(): void {
   }
 
   deleteTodo(index:number):void {
-    let  tempArr = [];
-
-    for(let i=0;i<this.todos.length;i++) {
-      if(i != index) {
-        tempArr.push(this.todos[i]);
-      }
-    }
-
-    this.todos = tempArr;
+   this.todoService.deleteTodo(index);
   }
 
 }

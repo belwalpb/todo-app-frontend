@@ -1,7 +1,7 @@
 <div>
-    <div *ngIf="todos.length !=0">
+    <div *ngIf="getTodos().length !=0">
         <h3>List of Available Todos:</h3>
-        <div class="todo-point" *ngFor="let currentTodo of todos; let i = index">
+        <div class="todo-point" *ngFor="let currentTodo of getTodos(); let i = index">
             <div>
                 <h4>Task {{i+1}} : {{currentTodo.task}}</h4>
                 <h4>Created At: {{currentTodo.date}}</h4>
@@ -13,6 +13,6 @@
     </div>
     
 
-    <h4 *ngIf="todos.length == 0">No todos Available now. Please add a new one.</h4>
+    <h4 *ngIf="getTodos().length == 0">No todos Available now. Please add a new one.</h4>
 
 </div>
