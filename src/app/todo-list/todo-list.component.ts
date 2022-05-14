@@ -8,7 +8,8 @@ import { TodoService } from '../todo.service';
 })
 export class TodoListComponent implements OnInit {
 
-  constructor(private todoService: TodoService) { }
+  constructor(private todoService: TodoService) {
+   }
 
 
   getTodos() : any[] {

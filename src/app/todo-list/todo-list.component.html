@@ -4,10 +4,10 @@
         <div class="todo-point" *ngFor="let currentTodo of getTodos(); let i = index">
             <div>
                 <h4>Task {{i+1}} : {{currentTodo.task}}</h4>
-                <h4>Created At: {{currentTodo.date}}</h4>
+                <h4>Created At: {{currentTodo.createdAt}}</h4>
             </div>
             <div>
-                <button class="delete-button" (click)="deleteTodo(i)">Delete</button>
+                <button class="delete-button" (click)="deleteTodo(currentTodo.id)">Delete</button>
             </div>
         </div>
     </div>

@@ -1,31 +1,39 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Todos } from './model/Todos';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { 
+    this.refreshTodos();
+  }
 
-  todos: any[] = [
-    { task: 'Need to go home', date: '12-02-2022' },
-    { task: 'Walk', date: '15-02-2022' },
-    { task: 'Need to bath', date: '13-02-2022' },
-    { task: 'Take Food', date: '14-02-2022' },
-  ]
+  todos: Todos[] = []
 
-  public deleteTodo(index:number):void {
-    let  tempArr = [];
-    for(let i=0;i<this.todos.length;i++) {
-      if(i != index) {
-        tempArr.push(this.todos[i]);
-      }
-    }
-    this.todos = tempArr;
+  public refreshTodos():void {
+    this.http.get<Todos[]>('http://localhost:8080/get-todos', {responseType: 'json'}).subscribe(res => {
+      this.todos = res;
+    })
+  }
+
+  public deleteTodo(id:number):void {
+    this.http.delete<Todos[]>(`http://localhost:8080/delete-todo/${id}`).subscribe(res => {
+      this.todos = res;
+      console.log('Todo Deleted');
+    })
   }
 
   public addTodo(newTask:string) {
-    this.todos.push({task:newTask, date: new Date().toUTCString()});
+    let reqBody = {
+      task: newTask
+    }
+    this.http.post<Todos[]>('http://localhost:8080/add-todo', reqBody).subscribe(todos => {
+      this.todos = todos;
+      console.log('Todo Added');
+    })
   }
 
 }
